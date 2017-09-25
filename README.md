@@ -39,7 +39,8 @@ However , nothing that can threaten the experience of mygju .
 # Please contact me for any bug reports or feedback at :
 O.Altamimi@Gju.edu.jo
 
-#العربية
+# ARABIC
+# العربية
 #المقدمة
 مرحباً بكل الطلاب الرفقاء , 
 اود ان انشر احدى البرامج التي كتبتها التي سوف تساعدكم باختيار افضل جدول ممكن قبل التسجيل للتسهيل .
