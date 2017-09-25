@@ -6,6 +6,7 @@
 								// @author       You
 								// @match        http://*/*
 								// @grant        none
+								// @run-at document-end
 								// @include      http://mygju.gju.edu.jo*
 								// @include      https://mygju.gju.edu.jo*
 								// @include      file:///C:/Users/Troll_000/Desktop/My%20Study%20Plan%20Offered%20Courses.html
