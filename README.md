@@ -7,7 +7,7 @@ The script skims data from the University's database using their "Course section
 The script requires a wait time of 30*(subjects number) seconds to finish the whole process . 
 
 Sadly , currently i've only allowed the usage of the script to analyze sections in the Madaba Departments of the University.
-
+# المقدمة
 
 # Installation process : 
 -Please install https://tampermonkey.net/ on your browser (preferably chrome) .
