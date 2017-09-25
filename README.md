@@ -31,6 +31,10 @@ Sadly , currently i've only allowed the usage of the script to analyze sections 
 The code's source on my Github : 
 https://github.com/omdano/cont/blob/master/omdano.js
 
+# DISCLAIMER 
+The code was written on the span of 4 days so it's bound to have a few bugs .
+However , nothing that can threaten the experience of mygju . 
+
 
 
 # Please contact me for any bug reports or feedback at :
