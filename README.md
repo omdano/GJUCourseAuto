@@ -1,3 +1,5 @@
+# UPDATE 0.9 :
+//IMPORTANT , AS OF UPDATE 0.9 , JABAL AMMAN IS INCLUDED VIA A CHECKBOX
 # Introduction
 
 Hello, dear fellow students of GJU ,
