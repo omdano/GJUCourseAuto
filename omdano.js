@@ -1,7 +1,7 @@
 									// ==UserScript==
 									// @name         GoBlindH - Omdano
 									// @namespace    http://tampermonkey.net/
-									// @version      0.7
+									// @version      0.98
 									// @description  Lazy af to do my course sections so im doing this
 									// @author       You
 									// @match        http://*/*
@@ -29,6 +29,7 @@
 									st.button_ani =button_ani;
 									st.button_res = button_res;
 									st.hxe = hxe;
+									var jbl = false ;
 									var blk = [];
 									var finl = [];
 									var i = 0;
@@ -339,12 +340,21 @@
 												var timings = [];
 												td = tr[i].getElementsByTagName("td");
 												if (td[0]) {
-													if (td[0].className == "ui-selection-column" ){ 
-													if(parseInt(td[td.length-2].textContent,10) < parseInt(td[td.length-3].textContent,10) && (td[td.length-1].textContent != "Blocked" || blk[subjects.indexOf(subj)]) && (td[td.length-5].textContent.indexOf("SI") == -1)) { 
-													console.log(td[td.length-5]);
+													if (td[0].className == "ui-selection-column" ){
+
+                                                    /*for(j=0;j<sectData;j++){
+                                                        sectData[j] = sectData[j].split("\t");
+                                                    }*/
+                                                    //console.log(sectData);
+                                                    console.log(td);
+                                                    console.log(jbl);
+                                                    console.log((td[td.length-6].textContent.indexOf("SI") == -1));
+													if(parseInt(td[td.length-3].textContent,10) < parseInt(td[td.length-4].textContent,10) && (td[td.length-2].textContent != "Blocked" || blk[subjects.indexOf(subj)]) && ((((jbl && (!(td[td.length-6].textContent.indexOf("SI") == -1 && td[td.length-6].textContent.indexOf("SD") == -1)))|| ((!(jbl)) && (td[td.length-6].textContent.indexOf("SI") == -1 && td[td.length-6].textContent.indexOf("SD") == -1)))))) {
+                                                    console.log("SECTION FOUND");
+													console.log(td[td.length-6]);
 													var section_num = td[3].textContent ;
 													var times = tr[i].getElementsByTagName("tbody");
-													var te = times[0].getElementsByTagName("td")[0].textContent;
+													var te = times[1].getElementsByTagName("td")[0].textContent;
 													times = times[1].getElementsByTagName("tr");
 
 													console.log(te);
@@ -375,7 +385,7 @@
 										num[c].click();
 										strt();
 										}
-										},2000);
+										},3000);
 				
 										}
 										if(c==0) {
@@ -388,7 +398,7 @@
 										document.getElementById("progtext").textContent = "Done Extracting "+subj+" Data.";
 										data.push(sectiondat);}
 
-										},2100*num.length);
+										},3100*num.length);
 									}
 									function perf(datax) {
 									var perfe = [];
@@ -486,7 +496,7 @@
 									arrxd = [document.getElementById("course1in:course").value,document.getElementById("course2in:course").value,document.getElementById("course3in:course").value,document.getElementById("course4in:course").value,document.getElementById("course5in:course").value,document.getElementById("course6in:course").value,document.getElementById("course7in:course").value,document.getElementById("course8in:course").value];
 									for(i=0;i<arrxd.length;i++) {
 										if(arrxd[i]!=="") {
-											heh.push(arrxd[i]);
+											heh.push(arrxd[i].toUpperCase());
 										}
 									}
 									subjects = heh;
@@ -502,9 +512,11 @@
 									break_time(document.getElementById("mon").value,"Mon");
 									break_time(document.getElementById("thu").value,"Thu");
 									console.log(subjects);
+									jbl = document.getElementById("SI").checked;
 									blk = [document.getElementById("ck1").checked,document.getElementById("ck2").checked,document.getElementById("ck3").checked,document.getElementById("ck4").checked,document.getElementById("ck5").checked,document.getElementById("ck6").checked,document.getElementById("ck7").checked,document.getElementById("ck8").checked];
-									document.getElementById("hehz").innerHTML = '<div id="prog" style="text-align:center;letter-spacing:2px;font-family: "Times New Roman", Times, serif;font-size:80px;font-weight:bold;"><div id="progtext" style="padding-top:100px;">Initializing Values</div></div>'+'<div id="myProgress style="margin-top:200px;margin-left:10%;width:80%;background-color:white;height:30px;""><div id="myBar" style="width:1%;height:30px;background-color:green;background-clip:padding-box;position:relative;margin-top:100px;margin-left:10%;"></div></div>'+'<div id="warn" style="text-align:center;letter-spacing:2px;font-family: "Times New Roman", Times, serif;font-size:80px;font-weight:bold;"><div id="progtext" style="padding-top:100px;">Please keep this tab open to avoid errors !!</div>'
+									document.getElementById("hehz").innerHTML = '<div id="prog" style="text-align:center;letter-spacing:2px;font-family: "Times New Roman", Times, serif;font-size:80px;font-weight:bold;"><div id="progtext" style="padding-top:100px;">Initializing Values</div></div>'+'<div id="myProgress style="margin-top:200px;margin-left:10%;width:80%;background-color:white;height:30px;""><div id="myBar" style="width:1%;height:30px;background-color:green;background-clip:padding-box;position:relative;margin-top:100px;margin-left:10%;"></div></div>'+'<div id="warn" style="text-align:center;letter-spacing:2px;font-family: "Times New Roman", Times, serif;font-size:80px;font-weight:bold;"><div id="progtext" style="padding-top:100px;">Please keep this tab open to avoid errors !!</div>';
 									k=0;
+									
 									move();
 									myLoop();	
 									var x = 0 ;
@@ -544,11 +556,11 @@
 									'<tbody id="sch_table" class="ui-datatable-data ui-widget-content" style="text-align:center;">'+
 									'</tbody></table></div></div>';
 									plot(finl[0]);
-									},3000);
+									},2600);
 									}
-									},600+1500*subjects.length);
+									},800+2600*subjects.length);
 
-									},(subjects.length*	30000));		
+									},(subjects.length*	30000));
 									}
 					
 									function sm_red() {
@@ -680,13 +692,15 @@
 									//  create a loop function
 									   setTimeout(function () {    
 											var form = document.getElementById("manage_course_sections_form:course");
+                                            var semester = document.getElementById("manage_course_sections_form:semester_input");
+                                            semester.value = 2;
 											form.value = subjects[k];
 											document.getElementById("manage_course_sections_form:searchBtn").click();
 											setTimeout(function() {hexx= document.getElementById("manage_course_sections_form:sections_tbl_paginator_top").getElementsByTagName("span")[5].getElementsByTagName("span");xsum +=hexx.length;console.log(k);c=0; data_ext(subjects[k],hexx);k++; 
 										  if (k < subjects.length) {            
 											 myLoop();             
 										  }   //  ..  setTimeout()
-									   },2000);  }, 15000);
+									   },4000);  }, 16000);
 				
 									}
 									function hxe() {	
@@ -699,7 +713,7 @@
 									scr.style.overflow = "hidden";
 									scr.innerHTML =scr.innerHTML + '<div style="overflow:hidden;border-bottom: solid dotted black;font-size: 22px;width:100%;height:100px;color: #2c2c2c;background-color: #d5d5d5;letter-spacing: .05em;text-shadow: 4px 4px 0px #d5d5d5, 7px 7px 0px rgba(0, 0, 0, 0.2);"><div style="font-size: 3em;line-height: 70px;padding-left:1em;">GJU Custom Courses</div><div style="text-align:right;padding-right:1em;line-height: 10px;dir=rtl;font-size: 1em;">by Omar A. Al-Tamimi</div></div>'+
 									'<div id="hehexdz" style="height:500px;width:100%;background-color: #f1f1f1"><div id="hehz"><div id="var" style="width:49%;;float:left;height:500px;border-right:1px dotted black;text-align:left;font: 50px arial, sans-serif;"><table cellspacing="1px" dir="ltr" style="float: left;padding-left:1em;" width="100%"><tbody><tr><td><label id="course1" class="ui-outputlabel ui-widget">Course Code 1 :</label></td><td><input id="course1in:course" name="course1n" type="text" class="ui-inputfield ui-inputtext ui-widget ui-state-default ui-corner-all" role="textbox" aria-disabled="false" aria-readonly="false" aria-multiline="false"></td><td><input type="checkbox" id="ck1" value="1"><span style="font-size:12px">Blocked</span></td></tr><tr><td><label id="course2" class="ui-outputlabel ui-widget">Course Code 2 :</label></td><td><input id="course2in:course" name="course2n" type="text" class="ui-inputfield ui-inputtext ui-widget ui-state-default ui-corner-all" role="textbox" aria-disabled="false" aria-readonly="false" aria-multiline="false"></td><td><input type="checkbox" id="ck2" value="1"><span style="font-size:12px">Blocked</span></td></tr><tr><td><label id="course3" class="ui-outputlabel ui-widget">Course Code 3 :</label></td><td><input id="course3in:course" name="course3n" type="text" class="ui-inputfield ui-inputtext ui-widget ui-state-default ui-corner-all" role="textbox" aria-disabled="false" aria-readonly="false" aria-multiline="false"></td><td><input type="checkbox" id="ck3" value="1"><span style="font-size:12px">Blocked</span></td></tr><tr><td><label id="course4" class="ui-outputlabel ui-widget">Course Code 4 :</label></td><td><input id="course4in:course" name="course4n" type="text" class="ui-inputfield ui-inputtext ui-widget ui-state-default ui-corner-all" role="textbox" aria-disabled="false" aria-readonly="false" aria-multiline="false"></td><td><input type="checkbox" id="ck4" value="1"><span style="font-size:12px">Blocked</span></td></tr><tr><td><label id="course5" class="ui-outputlabel ui-widget">Course Code 5 :</label></td><td><input id="course5in:course" name="course5n" type="text" class="ui-inputfield ui-inputtext ui-widget ui-state-default ui-corner-all" role="textbox" aria-disabled="false" aria-readonly="false" aria-multiline="false"></td><td><input type="checkbox" id="ck5" value="1"><span style="font-size:12px">Blocked</span></td></tr><tr><td><label id="course6" class="ui-outputlabel ui-widget">Course Code 6 :</label></td><td><input id="course6in:course" name="course6n" type="text" class="ui-inputfield ui-inputtext ui-widget ui-state-default ui-corner-all" role="textbox" aria-disabled="false" aria-readonly="false" aria-multiline="false"></td><td><input type="checkbox" id="ck6" value="1"><span style="font-size:12px">Blocked</span></td></tr><tr><td><label id="course7" class="ui-outputlabel ui-widget">Course Code 7 :</label></td><td><input id="course7in:course" name="course7n" type="text" class="ui-inputfield ui-inputtext ui-widget ui-state-default ui-corner-all" role="textbox" aria-disabled="false" aria-readonly="false" aria-multiline="false"></td><td><input type="checkbox" id="ck7" value="1"><span style="font-size:12px">Blocked</span></td></tr><tr><td><label id="course8" class="ui-outputlabel ui-widget">Course Code 8 :</label></td><td><input id="course8in:course" name="course8n" type="text" class="ui-inputfield ui-inputtext ui-widget ui-state-default ui-corner-all" role="textbox" aria-disabled="false" aria-readonly="false" aria-multiline="false"></td><td><input type="checkbox" id="ck8" value="1"><span style="font-size:12px">Blocked</span></td></tr></tbody></table></div>'+
-									'<div id="var2" style="width:50%;height:500px;text-align:left;font: 50px arial, sans-serif;float:left;"><table dir="ltr" style="float: left;border-spacing=10px 0;padding-left:1em;" width="100%"><tbody><tr><td><label id="fav_teach" class="ui-outputlabel ui-widget">Prefered Teachers:</label></td><td><table cellspacing="1px" dir="ltr" style="float: left;padding-left:1em;" width="100%"><tbody><tr><td><input id="te1:course" name="te1" type="text" class="ui-inputfield ui-inputtext ui-widget ui-state-default ui-corner-all" role="textbox" aria-disabled="false" aria-readonly="false" aria-multiline="false"></td></tr><tr><td><input id="te2:course" name="te2" type="text" class="ui-inputfield ui-inputtext ui-widget ui-state-default ui-corner-all" role="textbox" aria-disabled="false" aria-readonly="false" aria-multiline="false"></td></tr><tr><td><input id="te3:course" name="te3" type="text" class="ui-inputfield ui-inputtext ui-widget ui-state-default ui-corner-all" role="textbox" aria-disabled="false" aria-readonly="false" aria-multiline="false"></td></tr></tbody></table></td></tr><tr><td><label id="xdee" class="ui-outputlabel ui-widget">Break Times: &nbsp &nbsp &nbsp &nbsp &nbsp</label></td><td><table dir="ltr" style="float:left;padding-right:1em;" width=100%><tbody><tr><td><label id="fav_teach" class="ui-outputlabel ui-widget">Sunday-Tuesday:</label></td><td><select id="sun" class="ui-selectonemenu ui-widget ui-state-default ui-corner-all ui-helper-clearfix" ><option value="x">None</option><option value="1">08:00-09:30</option><option value="2">09:30-11:00</option><option value="3">11:00-12:30</option><option value="4">12:30-02:00</option><option value="5">02:00-03:30</option></td></tr><tr><td><label id="fav_teach" class="ui-outputlabel ui-widget">Monday-Wednesday:</label></td><td><select id="mon" class="ui-selectonemenu ui-widget ui-state-default ui-corner-all ui-helper-clearfix" ><option value="x">None</option><option value="1">08:00-09:30</option><option value="2">09:30-11:00</option><option value="3">11:00-12:30</option><option value="4">12:30-02:00</option><option value="5">02:00-03:30</option></td></tr><tr><td><label id="fav_teach" class="ui-outputlabel ui-widget">Thursday:</label></td><td><select id="thu" class="ui-selectonemenu ui-widget ui-state-default ui-corner-all ui-helper-clearfix" ><option value="x">None</option><option value="1">08:00-09:30</option><option value="2">09:30-11:00</option><option value="3">11:00-12:30</option><option value="4">12:30-02:00</option><option value="5">02:00-03:30</option></td></tr></tbody></td></tr><tr><td><button id="sub" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-icon-left commandButton" onclick ="st.datx()">Start</button></td></tr></tbody></table></div></div></div>';
+									'<div id="var2" style="width:50%;height:500px;text-align:left;font: 50px arial, sans-serif;float:left;"><table dir="ltr" style="float: left;border-spacing=10px 0;padding-left:1em;" width="100%"><tbody><tr><td><label id="fav_teach" class="ui-outputlabel ui-widget">Prefered Teachers:</label></td><td><table cellspacing="1px" dir="ltr" style="float: left;padding-left:1em;" width="100%"><tbody><tr><td><input id="te1:course" name="te1" type="text" class="ui-inputfield ui-inputtext ui-widget ui-state-default ui-corner-all" role="textbox" aria-disabled="false" aria-readonly="false" aria-multiline="false"></td></tr><tr><td><input id="te2:course" name="te2" type="text" class="ui-inputfield ui-inputtext ui-widget ui-state-default ui-corner-all" role="textbox" aria-disabled="false" aria-readonly="false" aria-multiline="false"></td></tr><tr><td><input id="te3:course" name="te3" type="text" class="ui-inputfield ui-inputtext ui-widget ui-state-default ui-corner-all" role="textbox" aria-disabled="false" aria-readonly="false" aria-multiline="false"></td></tr></tbody></table></td></tr><tr><td><label id="xdee" class="ui-outputlabel ui-widget">Break Times: &nbsp &nbsp &nbsp &nbsp &nbsp</label></td><td><table dir="ltr" style="float:left;padding-right:1em;" width=100%><tbody><tr><td><label id="fav_teach" class="ui-outputlabel ui-widget">Sunday-Tuesday:</label></td><td><select id="sun" class="ui-selectonemenu ui-widget ui-state-default ui-corner-all ui-helper-clearfix" ><option value="x">None</option><option value="1">08:00-09:30</option><option value="2">09:30-11:00</option><option value="3">11:00-12:30</option><option value="4">12:30-02:00</option><option value="5">02:00-03:30</option></td></tr><tr><td><label id="fav_teach" class="ui-outputlabel ui-widget">Monday-Wednesday:</label></td><td><select id="mon" class="ui-selectonemenu ui-widget ui-state-default ui-corner-all ui-helper-clearfix" ><option value="x">None</option><option value="1">08:00-09:30</option><option value="2">09:30-11:00</option><option value="3">11:00-12:30</option><option value="4">12:30-02:00</option><option value="5">02:00-03:30</option></td></tr><tr><td><label id="fav_teach" class="ui-outputlabel ui-widget">Thursday:</label></td><td><select id="thu" class="ui-selectonemenu ui-widget ui-state-default ui-corner-all ui-helper-clearfix" ><option value="x">None</option><option value="1">08:00-09:30</option><option value="2">09:30-11:00</option><option value="3">11:00-12:30</option><option value="4">12:30-02:00</option><option value="5">02:00-03:30</option></td></tr></tbody></td></tr><tr><td><input type="checkbox" id="SI" value="1"><span style="font-size:14px">Jabal Amman</span></td><td><button id="sub" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-icon-left commandButton" onclick ="st.datx()">Start</button></td></tr></tbody></table></div></div></div>';
 									 scr.style.borderRadius = "25px";
 			
 			
@@ -726,5 +740,6 @@
 				}
 
 									})();
+
 
 
